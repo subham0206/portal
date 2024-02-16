@@ -1,0 +1,37 @@
+<!-- payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <!-- Add the Stripe.js library -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- Add the Stripe pricing table script -->
+    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Proceed to Payment</h1>
+    </header>
+    <main>
+        <div id="paymentContainer">
+            <h2><center>Ensure a successful booking by proceeding to the payment stage..</center> </h2>
+            <stripe-pricing-table
+                pricing-table-id="prctbl_1OVFsxSGux6z7S8YMLkf5fZ9"
+                publishable-key="pk_test_51OVFDlSGux6z7S8YSsROaSQFZ78Nfk1irxxrO1HQeW6cN79mDPcCzz8ZtBtxHqgGd4YaR9CueVDyfoPVsN80QG6B00Ann0hydE">
+            </stripe-pricing-table>
+        </div>
+    </main>
+
+ 
+
+    <script>
+        // Add any additional scripts needed for the payment page
+    </script>
+</body>
+
+</html>
