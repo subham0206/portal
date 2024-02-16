@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Web Portal</title>
+    <!-- Add the Stripe.js library -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- Add the Stripe pricing table script -->
+    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        #paymentContainer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to Our Dhalbhum Club Booking Portal</h1>
+    </header>
+    <main>
+       
+        <form id="bookingForm" action="/book" method="post" onsubmit="return validateAndSubmit();">
+
+            <! -- Dropdown for Advocate/Non-Advocate selection -->
+            <label for="advocate">Employment:</label>
+            <select id="advocate" name="advocate">
+                <option value="non-advocate">Non-Advocate</option>
+                <option value="advocate">Advocate</option>
+            </select>
+        
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="mobile">Mobile NO:</label>
+            <input type="text" id="mobile" name="mobile" required>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+
+            
+            
+
+
+
+            <button type="submit" id="bookNowButton" disabled>Book Now</button>
+        </form>
+
+        <div id="image-gallery">
+            <button class="gallery-button" id="prev-button" onclick="prevImage()">❮</button>
+            <div class="gallery-container">
+                <!-- Images go here -->
+                <img src="/img1.JPG" alt="Image 1", width="600" height="400">
+                <img src="/img2.JPG" alt="Image 2", width="600" height="400">
+                <img src="/img3.JPG" alt="Image 3", width="600" height="400">
+                <img src="/img4.JPG" alt="Image 4", width="600" height="400">
+                <img src="/img5.JPG" alt="Image 5", width="600" height="400">
+                <img src="/img6.JPG" alt="Image 6", width="600" height="400">
+                <img src="/img7.JPG" alt="Image 7", width="600" height="400">
+                <img src="/img8.JPG" alt="Image 8", width="600" height="400">
+                <img src="/img9.JPG" alt="Image 9", width="600" height="400">
+                <img src="/img10.JPG" alt="Image 10", width="600" height="400">
+            </div>
+            <button class="gallery-button" id="next-button" onclick="nextImage()">❯</button>
+        </div>
+
+        <div id="paymentContainer">
+            <h2>Select Payment Option: </h2>
+            <stripe-pricing-table
+                pricing-table-id="prctbl_1OVFsxSGux6z7S8YMLkf5fZ9"
+                publishable-key="pk_test_51OVFDlSGux6z7S8YSsROaSQFZ78Nfk1irxxrO1HQeW6cN79mDPcCzz8ZtBtxHqgGd4YaR9CueVDyfoPVsN80QG6B00Ann0hydE">
+            </stripe-pricing-table>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-heading">Contact Us</div>
+            <div class="footer-address">R663+3J4, Dhalbhum Road, near Agreson Bhawan, SNP Area, Ambagan, Sakchi,
+                Jamshedpur, Jharkhand 831001, India</div>
+            <div class="footer-contact">Phone: +91 93348 23543</div>
+            <div class="footer-website">Website: <a href="https://www.dhalbhumclub.com" target="_blank">www.example.com</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function validateAndSubmit() {
+        const name = document.getElementById('name').value;
+        const mobile = document.getElementById('mobile').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+        const advocate = document.getElementById('advocate').value;
+
+        if (name && mobile && date && time && advocate) {
+            // Redirect to payment.html after form submission
+            //document.getElementById('bookingForm').submit();
+            //window.location.href = '/payment.html';
+            if(advocate ==='advocate'){
+                document.getElementById('bookingForm').submit();
+                
+            }else {
+                return true; // Prevent the default form submission
+            }
+                
+            
+        } else {
+            alert('Please fill in all the details before booking.');
+            return false; // Prevent the default form submission
+        }
+    }
+
+    // Enable the "Book Now" button when all form fields are filled
+    document.addEventListener('input', function () {
+        const name = document.getElementById('name').value;
+        const mobile = document.getElementById('mobile').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+        const advoctae = document.getElementById('advocate').value;
+        const bookNowButton = document.getElementById('bookNowButton');
+    // 15_02_2024
+        if (name && mobile && date && time && advocate) {
+            bookNowButton.disabled = false;
+        } else {
+            bookNowButton.disabled = true;
+        }
+    });
+        let currentIndex = 0;
+        const totalImages = 10;
+
+        function nextImage() {
+            const galleryContainer = document.querySelector('.gallery-container');
+            const imageWidth = galleryContainer.clientWidth;
+            currentIndex = (currentIndex + 1) % totalImages;
+            galleryContainer.style.transform = `translateX(${-currentIndex * imageWidth}px)`;
+        }
+
+        function prevImage() {
+            const galleryContainer = document.querySelector('.gallery-container');
+            const imageWidth = galleryContainer.clientWidth;
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            galleryContainer.style.transform = `translateX(${-currentIndex * imageWidth}px)`;
+        }
+
+       
+    </script>
+</body>
+
+</html>
